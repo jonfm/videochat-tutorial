@@ -34,7 +34,7 @@ render() {
 
 ## Vue 
 
-```
+```vue
 <template>
   <div v-html="renderedPublisherVideo"></div>
 </template>
