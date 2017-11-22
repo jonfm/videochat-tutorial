@@ -25,7 +25,7 @@ componentDidMount() {
 
 render() {
   return (
-    <div ref={tokboxContainer => this.tokboxContainer = tokboxContainer }></div> 
+    <div ref={tokboxContainer => this.tokboxContainer = tokboxContainer }></div>
   )
 }
 ```

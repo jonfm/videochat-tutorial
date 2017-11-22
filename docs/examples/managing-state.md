@@ -60,6 +60,10 @@ ReactDOM.render(
   </Provider>
 )
 
+// Connect the reducer to the props for the Root component (or elsewhere)
+import { connect } from 'react-redux'
+export default connect(({ user}) => ({ user }))(Root)
+
 // Optionaly define some action creators
 export function setUser (user, jwt) {
     return { type: SET_USER, user, jwt }
@@ -76,7 +80,7 @@ store.dispatch(setUser(user, jwt))
 
 ## Vue
 
-Disclaimer: You can actually use redux with vue and it behaves as the above `vue-redux`
+Disclaimer: This comparison is not exactly fair. You can actually use redux with vue and it behaves simlarly to the above example using`vue-redux`. Here I am describing `vuex`.
 
 ### Store
 
@@ -136,7 +140,7 @@ const ensureLoggedIn = (to, from, next) => {
 new Vue({
   el: '#app',
   router,
-  store, // injects the store into
+  store, // injects the store into the components
   template: '<App/>',
   components: { App }
 })
