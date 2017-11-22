@@ -18,18 +18,19 @@ publisher.on('videoElementCreated', (videoElement) {
 
 ```jsx
 componentDidMount() {
-  if (this.props.video) {
-    this.refs.tokboxContainer.appendChild(this.props.video) 
+  if (this.tokboxContainer && this.props.video) {
+    this.tokboxContainer.appendChild(this.props.video) 
   }
 }
 
 render() {
   return (
-    <div ref="tokboxContainer"></div> 
+    <div ref={tokboxContainer => this.tokboxContainer = tokboxContainer }></div> 
   )
 }
 ```
 - Use refs to insert the video into our virtual DOM
+- Text-only refs are being deprecated in favour of the functional approach
 
 ## Vue 
 

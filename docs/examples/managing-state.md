@@ -6,38 +6,39 @@ Hold on to our tokens and user information.
 
 ## React (Redux)
 
-### Store
+### Store & Reducer(s)
 
 ```js
 import { createStore, compose, combineReducers } from 'redux'
+import adapter from 'redux-localstorage/lib/adapters/localStorage'
 
 // Specific reducer
 const initialState = {
-    user: null
+  user: null
 }
 
 function userReducer (state = initialState, action) {
-    switch (action.type) {
-        case SET_USER:
-            return set(state, action.user) // merge helper
-        default:
-            return state
-    }
+  switch (action.type) {
+    case SET_USER:
+      return set(state, action.user) // merge helper
+      default:
+      return state
+  }
 }
 
 // Combining reducers
 const reducer = compose(
-    mergePersistedState()
+  mergePersistedState()
 )(combineReducers({
-    user:           userReducer,
-    status:         statusReducer
+  user:           userReducer,
+  status:         statusReducer
 }))
 
 // Add localstorage
 const storage = compose()(adapter(window.localStorage))
 
 const enhancer = compose(
-    persistState(storage, STORAGE_KEY)
+  persistState(storage, STORAGE_KEY)
 )
 
 // combine our store with our persistence strategy
@@ -47,9 +48,35 @@ export const store = createStore(reducer, enhancer)
 
 
 
+### Component or Router
 
+```js
+import { Provider } from 'react-redux'
+
+// Inject the store via props
+ReactDOM.render(
+  <Provider store={store}>
+    <Router> ... </Router>
+  </Provider>
+)
+
+// Optionaly define some action creators
+export function setUser (user, jwt) {
+    return { type: SET_USER, user, jwt }
+}
+
+// Dispatch the action where necessary
+store.dispatch(setUser(user, jwt))
+
+```
+
+- Create the store
+- Create reducers and action and combine them as required
+- Pass the store as props
 
 ## Vue
+
+Disclaimer: You can actually use redux with vue and it behaves as the above `vue-redux`
 
 ### Store
 

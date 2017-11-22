@@ -19,19 +19,20 @@ Some routes are private. when these are accessed we need to ensure the user is l
 
 - Default is JSX, but you can map JS to JSX really easily
 - onEnter hooks have been removed
-- new example looks like this:
+- new example is a pure function, passing render as a prop
 
 ```jsx
 <Route render={props => (
-    authCheck ? (
+    props.authCheck ? (
       <Component {...props}/>
     ) : (
-      <Redirect to={{
+      <Redirect to={{ // or use the Login component directly
         pathname: '/login',
         state: { from: props.location }
       }}/>
     )
-  )}/>
+  )}
+/>
 ```
 
 
@@ -65,7 +66,7 @@ onLogin (evt) {
 ```
 
 - React deprecated the `valueLink` property
-- We provide the setValue helper
+- We provide the `setValue` helper
 
 ## Vue
 
@@ -125,6 +126,7 @@ methods: {
 }        
 ```
 - The v-model directive handles the binding of changes to internal attributes for us out of the box which is nice.
+- How does this work in practice?
 
 
 
